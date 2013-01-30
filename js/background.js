@@ -14,7 +14,9 @@ chrome.tabs.onUpdated.addListener(checkForSongza);
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.type == 'songChange' && request.song) {
         // store current song attributes in DOM of background page
-        document.getElementById('artist').innerText = request.song.artist;
-        document.getElementById('title').innerText = request.song.title;
+        $('#artist').text(request.song.artist);
+        $('#title').text(request.song.title);
+    } else {
+        sendResponse({});
     }
 });

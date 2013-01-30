@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+$(function() {
 
     function update(song) {
         chrome.extension.sendMessage({
@@ -8,20 +8,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function getCurrentSongInfo() {
-        var $ = document.querySelector;
-
         return {
-            artist: $('#player .szi-roll-song .szi-info .szi-artist').innerText,
-            title:  $('#player .szi-roll-song .szi-info .szi-title').innerText
+            artist: $('#player .szi-roll-song .szi-info .szi-artist').text(),
+            title:  $('#player .szi-roll-song .szi-info .szi-title').text()
         }
     }
 
     var song = getCurrentSongInfo();
 
     function pollSongInfo() {
-        var currentsong = getCurrentSongInfo();
+        var currentSong = getCurrentSongInfo();
 
-        if (currentsong.name != song.name || currentsong.artist != song.artist) {
+        if (currentSong.name != song.name || currentSong.artist != song.artist) {
             song = currentSong;
             update(song);
         }
@@ -31,4 +29,5 @@ document.addEventListener('DOMContentLoaded', function() {
     window.setInterval(pollSongInfo, 5000);
     // send first update
     update(song);
+    
 });
