@@ -9,7 +9,7 @@
 
     "content_scripts": [{
         "matches": ["http://*.songza.com/*"],
-        "js": ["js/songza.js"]
+        "js": ["js/content.js"]
     }],
 
     "page_action": {

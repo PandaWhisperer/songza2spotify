@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
 
     function update(song) {
         chrome.extension.sendMessage({
@@ -31,4 +31,4 @@ document.addEventListener('DOMContentLoaded', function () {
     window.setInterval(pollSongInfo, 5000);
     // send first update
     update(song);
-}
+});
