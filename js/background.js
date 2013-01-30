@@ -7,16 +7,18 @@ function checkForSongza(tabId, changeInfo, tab) {
     }
 };
 
-// Listen for any changes to the URL of any tab.
-chrome.tabs.onUpdated.addListener(checkForSongza);
-
-// Listen for the 'songChange' message from the content script
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+function handleSongChange(request, sender, sendResponse) {
     if (request.type == 'songChange' && request.song) {
-        // store current song attributes in DOM of background page
+        // store current song in DOM of background page
         $('#artist').text(request.song.artist);
         $('#title').text(request.song.title);
     } else {
         sendResponse({});
     }
-});
+}
+
+// Listen for any changes to the URL of any tab.
+chrome.tabs.onUpdated.addListener(checkForSongza);
+
+// Listen for the 'songChange' message from the content script
+chrome.extension.onMessage.addListener(handleSongChange);

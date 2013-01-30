@@ -23,38 +23,48 @@ function searchSpotify(query, callback) {
     request.send();
 }
 
+function makeSpotifyLink(uri) {
+    var base = 'http://open.spotify.com/';
+
+    if (uri.split) {
+        var parts = uri.split(':');
+
+        if (parts.length === 3 && parts[0] === 'spotify') {
+            return base + parts[1] + '/' + parts[2];
+        }
+    }
+
+    return null;
+}
+
 function showResults(result) {
     var tracks = result.data.tracks;
 
+    $('.content').removeClass('loading');
+
     for (var i = 0; i < tracks.length; i++) {
-        var track = tracks[i],
-            track_div = document.createElement('div'),
-            artist    = document.createElement('span'),
-            title     = document.createElement('span');
+        var track = tracks[i];
 
-        artist.id = 'artist';
-        artist.innerText = track.artists.map(function(artist) { return artist.name; }).join(', ');
-
-        title.id = 'title';
-        title.innerText  = track.title;
-        
-        track_div.appendChild(artist);
-        track_div.appendChild(title);
-
-        document.body.appendChild(track_div);
+        $('.content').append(
+            '<div>' +
+                '<a href="' + makeSpotifyLink(track.href) + '" target="_blank">' +
+                    '<span class="artist">' +
+                         track.artists.map(function(artist) { return artist.name; }).join(', ') +
+                    '</span> - ' +
+                    '<span class="title">' + track.name + '</span>' +
+                '</a>' +
+            '</div>'
+        );
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+$(function () {
     var background_page = chrome.extension.getBackgroundPage();
 
-    var artist = background_page.document.getElementById('artist').innerText;
-    var title  = background_page.document.getElementById('title').innerText;
-
-    document.getElementById('artist').innerText = artist;
-    document.getElementById('title').innerText  = title;
+    var artist = $('#artist', background_page.document).text();
+    var title  = $('#title',  background_page.document).text();
 
     if (artist && title) {
-        //searchSpotify(artist + ' ' + title, showResults);
+        searchSpotify(artist + ' ' + title, showResults);
     }
 });

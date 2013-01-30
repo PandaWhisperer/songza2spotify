@@ -14,15 +14,10 @@
           width: 64px;
           height: 64px;
       }
-    
-      img.loading {
-          width: 16px;
-          height: 16px;
-          border: none;
-      }
 
-      div.loading {
-          text-align: center;
+      .loading {
+          min-height: 18px;
+          background: url('images/loading.gif') transparent;
       }
     </style>
 
@@ -32,16 +27,16 @@
       -
       - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
      -->
-    <script src="js/popup.js"></script>
+    <script type="text/javascript" src="js/lib/zepto.min.js"></script>
+    <script type="text/javascript" src="js/popup.js"></script>
   </head>
   <body>
+      <!--
       <div class="songinfo">
           <span id="artist"></span> - <span id="title"></span>
       </div>
-      <div class="loading">
-          <img src="images/loading.gif" alt="Loading..." class="loading">
-          Loading, please wait...
-      </div>
+      -->
+      <div class="content loading"></div>
   </body>
 </html>
 
