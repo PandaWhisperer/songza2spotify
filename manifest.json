@@ -1,0 +1,31 @@
+{
+    "name": "Songza2Spotify",
+    "version": "0.1",
+    "description": "Opens the currently playing song in Spotify",
+
+    "background": {
+        "page": "background.html"
+    },
+
+    "content_scripts": [{
+        "matches": ["http://*.songza.com/*"],
+        "js": ["js/songza.js"]
+    }],
+
+    "page_action": {
+        "default_icon": "images/spotify32.png",
+        "default_title": "Open currently playing song in Spotify",
+        "default_popup": "popup.html"
+    },
+
+    "permissions": [
+        "tabs",
+        "http://ws.spotify.com/"
+    ],
+
+    "icons": {
+        "128": "images/spotify128.png"
+    },
+
+    "manifest_version": 2
+}
