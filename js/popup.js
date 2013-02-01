@@ -31,35 +31,27 @@ function makeSpotifyLink(uri) {
     return null;
 }
 
-function formatTrack(track) {
-    getAlbumCover(track.album.href, function(coverURL) {
-        $('div[href="' + track.href + '"] .cover img').removeClass('loading').attr('src', coverURL);
-    });
-
-    return  '' +
-    '<div class="track" href="' + track.href + '">' +
-        '<p class="cover">' +
-            '<a href="' + makeSpotifyLink(track.album.href) + '" target="_blank">' +
-                '<img class="loading"/>' +
-            '</a>' +
-        '</p>' +
-        '<p class="details">' +
-            '<p class="artist">' +
-                 track.artists.map(function(artist) { return artist.name; }).join(', ') +
-            '</p>' +
-            '<p class="title">' +
-                '<a href="' + makeSpotifyLink(track.href) + '" target="_blank">' + track.name + '</a>' +
-            '</p>' +
-        '</p>' +
-    '</div>';
-}
-
 function showResults(data, status) {
     $('.content').removeClass('loading');
 
     if (status === 'success') {
         for (var i = 0; i < data.tracks.length; i++) {
-            $('.content').append(formatTrack(data.tracks[i]));
+            var track = data.tracks[i];
+
+            track.url = makeSpotifyLink(track.href);
+            track.album.url = makeSpotifyLink(track.href);
+
+            track.artist = track.artists[0];
+            track.artist.url = makeSpotifyLink(track.artist);
+
+            $('.content').append(
+                // format using template
+                ich.track(track)
+            );
+
+            getAlbumCover(track.album.href, function(coverURL) {
+                $('div[href="' + track.href + '"] .album img').removeClass('loading').attr('src', coverURL);
+            });
         }
     } else {
         $('.content').text('Could not connect to Spotify.');

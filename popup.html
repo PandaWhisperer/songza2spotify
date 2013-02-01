@@ -51,6 +51,7 @@
       - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
      -->
     <script type="text/javascript" src="js/lib/zepto.min.js"></script>
+    <script type="text/javascript" src="js/lib/ICanHaz.min.js"></script>
     <script type="text/javascript" src="js/popup.js"></script>
   </head>
   <body>
@@ -59,7 +60,31 @@
           <span id="artist"></span> - <span id="title"></span>
       </div>
       -->
+
+      <!-- OUR TEMPLATES -->
+
+      <script type="text/html" id="track">
+        <div class="track" href="{{ href }}">
+            <p class="album">
+                <a href="{{ album.url }}" target="_blank">
+                    <img class="loading" alt="{{ album.name }}"/>
+                </a> 
+            </p>
+            <p class="details">
+                <p class="artist">
+                    <a href="{{ artist.url }}">{{ artist.name }}</a>
+                </p>
+                <p class="title">
+                    <a href="{{ url }}" target="_blank"> {{ name }} </a>
+                </p>
+            </p>
+        </div>
+      </script>
+
+      <!-- MAIN CONTENT -->
+
       <div class="content loading"></div>
+
   </body>
 </html>
 
