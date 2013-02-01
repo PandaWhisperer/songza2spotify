@@ -11,19 +11,12 @@
       }
 
       .track {
-          min-height: 68px;
-      }
-
-      .track p {
-          margin-left: 70px;
+          height: 60px;
       }
 
       .track .album {
-          left: 8px;
-          margin: 0;
-          position: absolute;
-          top: 32px;
-          width: 60px;
+          margin: -10px 0;
+          float: left;
       }
 
       .track .album img {
@@ -35,12 +28,16 @@
 
       .track .artist {
           font-size: 15px;
-          margin-bottom: 4px;
+          margin-left: 75px;
+      }
+
+      .track .title {
+          margin-left: 75px;
       }
 
       .loading {
           min-height: 18px;
-          background: url('images/loading.gif') no-repeat transparent;
+          background: url('images/loading.gif') center no-repeat transparent;
       }
     </style>
 
@@ -70,13 +67,11 @@
                     <img class="loading" alt="{{ album.name }}"/>
                 </a> 
             </p>
-            <p class="details">
-                <p class="artist">
-                    <a href="{{ artist.url }}">{{ artist.name }}</a>
-                </p>
-                <p class="title">
-                    <a href="{{ url }}" target="_blank"> {{ name }} </a>
-                </p>
+            <p class="artist">
+                <a href="{{ artist.url }}" target="_blank">{{ artist.name }}</a>
+            </p>
+            <p class="title">
+                <a href="{{ url }}" target="_blank"> {{ name }} </a>
             </p>
         </div>
       </script>
