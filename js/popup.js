@@ -1,26 +1,20 @@
-function searchSpotify(query, callback) {
-    var request = new XMLHttpRequest();
 
+function searchSpotify(query, callback) {
     // encode query properly
     query = encodeURIComponent(query.toLowerCase());
 
-    // populate request
-    request.open("GET", "http://ws.spotify.com/search/1/track.json?q="+query, true);
-    request.onreadystatechange = function(event) {
-        if (request.readyState === 4) {
-            if (request.status === 200) {
-                callback({
-                    success: true,
-                    data: JSON.parse(request.responseText)
-                });
-            } else {
-                callback({success: false});
-            }
-        }
-    }
+    $.getJSON("http://ws.spotify.com/search/1/track.json?q="+query, callback);
+}
 
-    // and... fire
-    request.send();
+function getAlbumCover(albumURI, callback) {
+    $.get(makeSpotifyLink(albumURI), function(response, status) {
+        var match = response.match(/meta.*og:image.*content="(.*)"/);
+        if (match && match.length > 1) {
+            return callback(match[1]);
+        }
+        // request error or no image found
+        return callback(null);
+    });
 }
 
 function makeSpotifyLink(uri) {
@@ -37,27 +31,42 @@ function makeSpotifyLink(uri) {
     return null;
 }
 
-function showResults(result) {
-    var tracks = result.data.tracks;
+function formatTrack(track) {
+    getAlbumCover(track.album.href, function(coverURL) {
+        $('div[href="' + track.href + '"] .cover img').removeClass('loading').attr('src', coverURL);
+    });
 
+    return  '' +
+    '<div class="track" href="' + track.href + '">' +
+        '<p class="cover">' +
+            '<a href="' + makeSpotifyLink(track.album.href) + '" target="_blank">' +
+                '<img class="loading"/>' +
+            '</a>' +
+        '</p>' +
+        '<p class="details">' +
+            '<p class="artist">' +
+                 track.artists.map(function(artist) { return artist.name; }).join(', ') +
+            '</p>' +
+            '<p class="title">' +
+                '<a href="' + makeSpotifyLink(track.href) + '" target="_blank">' + track.name + '</a>' +
+            '</p>' +
+        '</p>' +
+    '</div>';
+}
+
+function showResults(data, status) {
     $('.content').removeClass('loading');
 
-    for (var i = 0; i < tracks.length; i++) {
-        var track = tracks[i];
-
-        $('.content').append(
-            '<div>' +
-                '<a href="' + makeSpotifyLink(track.href) + '" target="_blank">' +
-                    '<span class="artist">' +
-                         track.artists.map(function(artist) { return artist.name; }).join(', ') +
-                    '</span> - ' +
-                    '<span class="title">' + track.name + '</span>' +
-                '</a>' +
-            '</div>'
-        );
+    if (status === 'success') {
+        for (var i = 0; i < data.tracks.length; i++) {
+            $('.content').append(formatTrack(data.tracks[i]));
+        }
+    } else {
+        $('.content').text('Could not connect to Spotify.');
     }
 }
 
+// initialize popup content
 $(function () {
     var background_page = chrome.extension.getBackgroundPage();
 

@@ -6,18 +6,41 @@
       body {
           min-width: 300px;
           overflow-x: hidden;
+          border: none;
+          font: normal 12px helvetica, arial, verdana, sans-serif;
       }
 
-      img.album {
+      .track {
+          min-height: 68px;
+      }
+
+      .track p {
+          margin-left: 70px;
+      }
+
+      .track .album {
+          left: 8px;
+          margin: 0;
+          position: absolute;
+          top: 32px;
+          width: 60px;
+      }
+
+      .track .album img {
           margin: 5px;
           vertical-align: middle;
-          width: 64px;
-          height: 64px;
+          width: 60px;
+          height: 60px;
+      }
+
+      .track .artist {
+          font-size: 15px;
+          margin-bottom: 4px;
       }
 
       .loading {
           min-height: 18px;
-          background: url('images/loading.gif') transparent;
+          background: url('images/loading.gif') no-repeat transparent;
       }
     </style>
 
