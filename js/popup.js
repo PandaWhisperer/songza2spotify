@@ -42,7 +42,7 @@ function showResults(data, status) {
             track.album.url = makeSpotifyLink(track.href);
 
             track.artist = track.artists[0];
-            track.artist.url = makeSpotifyLink(track.artist);
+            track.artist.url = makeSpotifyLink(track.artist.href);
 
             $('.content').append(
                 // format using template
