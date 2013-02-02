@@ -9,30 +9,45 @@
           border: none;
           font: normal 12px helvetica, arial, verdana, sans-serif;
       }
-
-      .track {
-          height: 60px;
+      
+      a {
+          color: black;
+          font-weight: bold;
+          text-decoration: none;
       }
 
-      .track .album {
-          margin: -10px 0;
+      a:hover {
+          text-decoration: underline;
+      }
+
+      .track {
+          height: 66px;
+      }
+
+      .track p {
+          margin: 6px 0;
+      }
+
+      .track .cover {
+          margin: -8px 0;
           float: left;
       }
 
-      .track .album img {
-          margin: 5px;
+      .track .cover img {
+          margin: 5px 10px 0 0;
           vertical-align: middle;
-          width: 60px;
-          height: 60px;
-      }
-
-      .track .artist {
-          font-size: 15px;
-          margin-left: 75px;
+          width: 62px;
+          height: 62px;
       }
 
       .track .title {
-          margin-left: 75px;
+          font-size: 15px;
+      }
+
+      .track .artist {
+      }
+
+      .track .album {
       }
 
       .loading {
@@ -62,16 +77,17 @@
 
       <script type="text/html" id="track">
         <div class="track" id="{{ href }}">
-            <p class="album">
-                <a href="{{ album.url }}" target="_blank">
-                    <img class="loading" alt="{{ album.name }}"/>
-                </a> 
-            </p>
-            <p class="artist">
-                <a href="{{ artist.url }}" target="_blank">{{ artist.name }}</a>
+            <p class="cover">
+                <img class="loading" alt="{{ album.name }}"/>
             </p>
             <p class="title">
                 <a href="{{ url }}" target="_blank"> {{ name }} </a>
+            </p>
+            <p class="artist">
+                by <a href="{{ artist.url }}" target="_blank">{{ artist.name }}</a>
+            </p>
+            <p class="album">
+                on <a href="{{ album.url }}" target="_blank">{{ album.name }}</a>
             </p>
         </div>
       </script>
