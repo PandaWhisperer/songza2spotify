@@ -39,7 +39,7 @@ function showResults(data, status) {
             var track = data.tracks[i];
 
             track.url = makeSpotifyLink(track.href);
-            track.album.url = makeSpotifyLink(track.href);
+            track.album.url = makeSpotifyLink(track.album.href);
 
             track.artist = track.artists[0];
             track.artist.url = makeSpotifyLink(track.artist.href);
@@ -50,7 +50,7 @@ function showResults(data, status) {
             );
 
             getAlbumCover(track.album.href, function(coverURL) {
-                $('div[href="' + track.href + '"] .album img').removeClass('loading').attr('src', coverURL);
+                $('.track[id="' + track.href + '"] .album img').removeClass('loading').attr('src', coverURL);
             });
         }
     } else {
