@@ -20,7 +20,7 @@ function getAlbumCover(albumURI, callback) {
 function makeSpotifyLink(uri) {
     var base = 'http://open.spotify.com/';
 
-    if (uri.split) {
+    if (uri && uri.split) {
         var parts = uri.split(':');
 
         if (parts.length === 3 && parts[0] === 'spotify') {
