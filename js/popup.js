@@ -50,7 +50,7 @@ function showResults(data, status) {
             );
 
             getAlbumCover(track.album.href, function(coverURL) {
-                $('.track[id="' + track.href + '"] .album img').removeClass('loading').attr('src', coverURL);
+                $('.track[id="' + track.href + '"] .cover img').removeClass('loading').attr('src', coverURL);
             });
         }
     } else {
