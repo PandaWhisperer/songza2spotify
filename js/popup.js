@@ -49,9 +49,11 @@ function showResults(data, status) {
                 ich.track(track)
             );
 
-            getAlbumCover(track.album.href, function(coverURL) {
-                $('.track[id="' + track.href + '"] .cover img').removeClass('loading').attr('src', coverURL);
-            });
+            (function(track) {
+                getAlbumCover(track.album.href, function(coverURL) {
+                    $('.track[id="' + track.href + '"] .cover img').removeClass('loading').attr('src', coverURL);
+                });
+            })(track);
         }
     } else {
         $('.content').text('Could not connect to Spotify.');
