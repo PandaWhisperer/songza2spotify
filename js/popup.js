@@ -49,6 +49,8 @@ function showResults(data, status) {
                 ich.track(track)
             );
 
+            $('.track[id="'+track.href+'"] p').each(function() { new Scroller(this); });
+
             (function(track) {
                 getAlbumCover(track.album.href, function(coverURL) {
                     $('.track[id="' + track.href + '"] .cover img').removeClass('loading').attr('src', coverURL);

@@ -29,6 +29,9 @@
           margin: 6px 0;
           overflow: hidden;
           white-space: nowrap;
+      }
+
+      .track p.hiding {
           text-overflow: ellipsis;
       }
 
@@ -68,6 +71,7 @@
      -->
     <script type="text/javascript" src="js/lib/zepto.min.js"></script>
     <script type="text/javascript" src="js/lib/ICanHaz.min.js"></script>
+    <script type="text/javascript" src="js/scroller.js"></script>
     <script type="text/javascript" src="js/popup.js"></script>
   </head>
   <body>
@@ -81,9 +85,9 @@
 
       <script type="text/html" id="track">
         <div class="track" id="{{ href }}">
-            <p class="cover">
+            <div class="cover">
                 <img class="loading" alt="{{ album.name }}"/>
-            </p>
+            </div>
             <p class="title">
                 <a href="{{ url }}" target="_blank"> {{ name }} </a>
             </p>
